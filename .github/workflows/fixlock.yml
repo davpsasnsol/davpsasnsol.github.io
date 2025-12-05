@@ -1,0 +1,26 @@
+name: Fix package-lock.json
+
+on:
+  workflow_dispatch:
+
+jobs:
+  regen-lockfile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Remove old lockfile
+        run: rm -f package-lock.json
+      - name: Install dependencies and regenerate lockfile
+        run: npm install
+      - name: Commit and push new lockfile
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add package-lock.json
+          git commit -m "ci: regenerate package-lock.json from workflow" || echo "No changes to commit"
+          git push
