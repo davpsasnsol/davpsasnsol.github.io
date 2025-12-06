@@ -20,18 +20,20 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # Set to your preferred Node.js version
+          node-version: '20'
 
-      - name: Install dependencies
+      - name: Install dependencies (client)
+        working-directory: ./client
         run: npm install
 
-      - name: Build site
+      - name: Build site (client)
+        working-directory: ./client
         run: npm run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist # Replace with your actual build output directory (commonly ./dist, ./build, or similar)
+          path: ./dist/server/public  # Output is relative to repo root
 
       - name: Deploy to GitHub Pages
         id: deployment
