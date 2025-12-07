@@ -1,22 +1,84 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta charset="utf-8">
-    <script>
-      // SPA redirect script by rafgraph
-      // https://github.com/rafgraph/spa-github-pages
-      // If a real file is requested, this does nothing;
-      // Otherwise, it redirects all non-file requests to index.html
-      var pathSegments = window.location.pathname.split('/');
-      var filename = pathSegments[pathSegments.length - 1];
-      if (!filename.includes('.') && window.location.pathname !== '/') {
-        // replace this with your app's base URL if needed
-        window.location.replace('/?redirected=' + encodeURIComponent(window.location.pathname + window.location.search + window.location.hash));
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DAV Public School</title>
+    <link rel="icon" type="image/png" href="/favicon.ico" />
+    <meta name="description" content="Official website of DAV Public School" />
+    <meta name="theme-color" content="#000000" />
+    <style>
+      /* ✨ Base Animations */
+      @keyframes fade-in-up {
+        0% {
+          opacity: 0;
+          transform: translateY(40px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
-    </script>
-    <meta http-equiv="refresh" content="0; url=/" />
+
+      @keyframes float {
+        0% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-15px);
+        }
+        100% {
+          transform: translateY(0px);
+        }
+      }
+
+      .animate-fade-in-up {
+        animation: fade-in-up 1.2s ease-out forwards;
+      }
+
+      .float-slow {
+        animation: float 6s ease-in-out infinite;
+      }
+
+      .background-glow {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: full;
+        height: 500px;
+        background: radial-gradient(circle, #00ffd5 0%, transparent 70%);
+        opacity: 0.15;
+        transform: translate(-50%, -50%);
+        filter: blur(100px);
+        z-index: -1;
+        animation: float 12s ease-in-out infinite;
+      }
+    </style>
   </head>
-  <body>
-    Redirecting...
+
+  <body class="bg-background text-foreground overflow-x-hidden relative">
+    <!-- ✨ Background glow effect -->
+    <div class="background-glow"></div>
+
+    <div id="root">
+      <!-- Intro Section -->
+      <div class="flex flex-col items-center justify-center h-screen text-center animate-fade-in-up px-4">
+        <h1 class="text-4xl md:text-6xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent mb-4 float-slow">
+          DAV Public School
+        </h1>
+        <p class="text-lg md:text-xl text-gray-400 max-w-xl mb-6 animate-fade-in-up" style="animation-delay: 0.5s;">
+          Empowering education for tomorrow, inspired by heritage and driven by excellence.
+        </p>
+        <a
+          href="/home"
+          class="px-6 py-3 rounded-full bg-white text-black font-semibold transition-transform hover:scale-105 hover:bg-gray-100 animate-fade-in-up"
+          style="animation-delay: 1s;"
+        >
+          Explore Now
+        </a>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
